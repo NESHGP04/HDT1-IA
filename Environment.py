@@ -3,8 +3,8 @@
 import random
 
 class Environment:
-    def init(self):
-        self.actual_temp = random.randit(0,100) #inicializa la temperatura en un número random
+    def __init__(self):
+        self.actual_temp = random.randint(0, 100) #inicializa la temperatura en un número random
 
     def get_percept(self): #devuelve temperatura actual
         return self.actual_temp 
