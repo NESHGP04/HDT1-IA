@@ -1,103 +1,87 @@
-Hoja de Trabajo #1 - Inteligencia Artificial
+# Hoja de Trabajo #1 - Termostato Inteligente (Agente Reflejo Simple)
 
-Autores: Camila Richter 23183
-         Marinés García 23391
+Autoras: Camila Richter (23183), Marinés García (23391)
 
-# Termostato Inteligente – Agente Reflejo Simple
+## Resumen
+Implementación en Python de un Agente Reflejo Simple que interactúa con un entorno que simula un termostato. El agente percibe la temperatura actual y decide si calentar, enfriar o esperar, demostrando el ciclo percepción → decisión → acción.
 
-## Descripción del Proyecto
-Este proyecto implementa la **estructura básica de un Agente Reflejo Simple**, siguiendo la Arquitectura de Agente vista en clase (Slides 26–29).  
-El objetivo no es resolver un problema complejo de búsqueda, sino **traducir el concepto teórico de agente y entorno a código orientado a objetos en Python**.
+## Contenido del README
+- Descripción
+- Requisitos
+- Instalación y ejecución
+- Estructura del proyecto
+- Descripción breve de los módulos
+- Ejemplo de uso y salida esperada
 
-El sistema simula un **termostato inteligente**, donde un agente percibe la temperatura del entorno y decide una acción para regularla.
+## Requisitos
+- Python 3.8 o superior
+- (Opcional) Crear un entorno virtual para aislar dependencias
 
----
+No se necesitan librerías externas fuera de la biblioteca estándar para ejecutar el proyecto.
 
-## Objetivo
-- Implementar un **Agente Reflejo Simple**.
-- Separar claramente el **Entorno (Environment)** del **Agente (Agent)**.
-- Implementar el **ciclo Percepción → Acción** durante varias iteraciones.
-- Mostrar cómo la función del agente depende únicamente de la percepción actual.
+## Instalación
+1. Clonar el repositorio o descargar los archivos en una carpeta local.
+2. (Opcional) Crear y activar un entorno virtual:
 
----
+   python3 -m venv venv
+   source venv/bin/activate
 
-## Estructura del Proyecto
-proyecto/
-│── main.py
-│── environment.py
-│── agent.py
-│── README.md
+3. Ejecutar el proyecto con Python:
 
----
+   python3 main.py
 
-## Environment (Entorno)
-La clase `Environment` representa el entorno físico del termostato.
+## Estructura del proyecto
+```
+HDT1-IA/
+├── agent.py         # Implementación del agente reflejo
+├── environment.py   # Implementación del entorno (termómetro, física simple)
+├── main.py          # Ciclo percepción → acción y entrada principal
+├── README.md        # Este archivo
+```
 
-### Características:
-- Contiene una variable `actual_temp` que representa la temperatura actual.
-- La temperatura inicial se genera de forma aleatoria.
-- Provee métodos para que el agente perciba y actúe sobre el entorno.
+## Descripción breve de los módulos
+- `environment.py`:
+  - Clase `Environment` que mantiene la temperatura actual (`actual_temp`).
+  - Métodos principales:
+    - `get_percept()` — devuelve la temperatura actual (simula el sensor).
+    - `update(action)` — aplica la acción del agente y ajusta la temperatura.
 
-### Métodos:
-- `__init__()`  
-  Inicializa la temperatura con un valor aleatorio.
-- `get_percept()`  
-  Simula los sensores y devuelve la temperatura actual.
-- `update(action)`  
-  Modifica la temperatura según la acción recibida:
-  - `"enfriar"` → disminuye la temperatura.
-  - `"calentar"` → aumenta la temperatura.
-  - `"esperar"` → no realiza cambios.
+- `agent.py`:
+  - Clase `Agent` con la función `act(percept)` que, a partir de la temperatura percibida, decide:
+    - `"enfriar"` si temp > 25
+    - `"calentar"` si temp < 18
+    - `"esperar"` en caso contrario
 
----
+- `main.py`:
+  - Crea instancias de `Environment` y `Agent` y ejecuta el bucle principal durante varias iteraciones.
+  - Imprime la temperatura, la acción elegida y la nueva temperatura.
 
-## Agent (Agente)
-La clase `Agent` representa un **agente reflejo simple**.
+## Uso — ejemplo
+Al ejecutar `python3 main.py` verás una salida similar a la siguiente (resumen):
 
-### Características:
-- No tiene memoria del pasado.
-- Toma decisiones únicamente con base en la percepción actual.
-- Implementa la función del agente:  
-  **f(percepción) → acción**
-
-### Lógica del método `act(perception)`:
-- Si la temperatura es mayor a 25 → retorna `"enfriar"`.
-- Si la temperatura es menor a 18 → retorna `"calentar"`.
-- En cualquier otro caso → retorna `"esperar"`.
-
----
-
-## Ciclo Percepción / Acción (main)
-El archivo `main.py` implementa el ciclo principal del sistema.
-
-### Funcionamiento:
-- Se crean instancias del `Environment` y del `Agent`.
-- El sistema se ejecuta durante **10 iteraciones**.
-- En cada iteración se imprime:
-  - La temperatura actual (percepción).
-  - La acción seleccionada por el agente.
-  - La nueva temperatura después de ejecutar la acción.
-
-Este ciclo simula el comportamiento continuo de un agente interactuando con su entorno.
-
----
-
-## Ejemplo de Salida
 Iteración 1
 Temperatura actual: 30°C
 Acción del agente: enfriar
 Nueva temperatura: 29°C
 
+Iteración 2
+Temperatura actual: 29°C
+Acción del agente: enfriar
+Nueva temperatura: 28°C
+
+... (y así sucesivamente durante las iteraciones definidas en `main.py`)
+
+## Extensiones sugeridas (opciones para ampliar el trabajo)
+- Añadir histéresis o un control proporcional para evitar oscilaciones.
+- Guardar un log de las temperaturas para graficar el comportamiento.
+- Permitir parámetros de configuración (temperatura objetivo, rango aceptable, número de iteraciones).
+
+## Créditos
+- Camila Richter — implementación y diseño
+- Marinés García — documentación y pruebas
+
+## Licencia
+Repositorio de trabajo de curso (sin licencia específica). Para uso académico y personal.
+
 ---
-
-## Conclusión
-Este proyecto demuestra cómo los conceptos teóricos de:
-- Agente
-- Entorno
-- Percepción
-- Acción
-- Función del agente  
-
-pueden ser representados de forma clara mediante **programación orientada a objetos**, cumpliendo con la definición de un **Agente Reflejo Simple**.
-
----
+Si quieres, aplico estos cambios al `README.md` ahora y dejo una nota de qué edité y por qué.

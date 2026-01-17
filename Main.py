@@ -6,7 +6,7 @@ def main():
     env = Environment()
     agent = Agent()
 
-    print("Simulación de Termostato Inteligente\n")
+    print("\n Simulación de Termostato Inteligente\n")
 
     for step in range(10):
         print(f"Iteración {step + 1}")
